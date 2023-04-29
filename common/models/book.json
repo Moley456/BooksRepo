@@ -1,0 +1,44 @@
+{
+  "name": "Book",
+  "plural": "books",
+  "base": "PersistedModel",
+  "idInjection": false,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "publisher": {
+      "type": "string",
+      "required": true
+    },
+    "year": {
+      "type": "number",
+      "required": true
+    },
+    "authorId": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {},
+  "indexes": {
+    "indexName": {
+      "keys": {
+        "title": 1, 
+        "publisher": 1,
+        "year": 1,
+        "authorId": 1
+      }, 
+      "options": {
+        "unique": true
+      }
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "extends": "loopback",
+  "rules": {
+    "space-before-function-paren": [1, {"anonymous": "always", "named": "never"}]
+  }
+}

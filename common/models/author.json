@@ -1,0 +1,31 @@
+{
+  "name": "Author",
+  "plural": "authors",
+  "base": "PersistedModel",
+  "idInjection": false,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "id": true
+    },
+    "biography": {
+      "type": "string",
+      "default": "Author has no biography."
+    }
+  },
+  "validations": [],
+  "relations": {
+    "authored": {
+      "type": "hasMany",
+      "model": "Book",
+      "foreignKey": "authorId",
+      "primaryKey": "name"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}
