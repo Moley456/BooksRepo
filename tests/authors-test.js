@@ -6,7 +6,7 @@ describe('/authors', () => {
   var expect = require('expect.js');
   const assert = require('assert');
 
-  var Author;
+  var Author, Book;
 
   before(() => {
     Author = server.models.Author;
@@ -66,14 +66,14 @@ describe('/authors', () => {
         });
     });
 
-    it('PATCH non-existing author', (done) => {
+    it('fail to PATCH non-existing author', (done) => {
       request
         .patch('/api/authors/non-exist')
         .send({biography: 'My updated biography'})
         .expect(404, done);
     });
 
-    it('PATCH non-existing property of author1', (done) => {
+    it('fail to PATCH non-existing property of author1', (done) => {
       request
         .patch('/api/authors/author1')
         .send({nonExist: 'non-exist'})
@@ -97,7 +97,7 @@ describe('/authors', () => {
         });
     });
 
-    it('POST author with name more than 100 characters', (done) => {
+    it('fail to POST author with name more than 100 characters', (done) => {
       request
         .post('/api/authors')
         .send({
@@ -118,7 +118,7 @@ describe('/authors', () => {
         });
     });
 
-    it('POST existing author1', (done) => {
+    it('fail to POST existing author1', (done) => {
       request
         .post('/api/authors')
         .send({name: 'author1', biography: 'This is my biography'})
@@ -140,12 +140,28 @@ describe('/authors', () => {
         });
     });
 
-    it('DELETE author1', (done) => {
-      request.delete('/api/authors/author1').expect(200, done);
+    it('fail to DELETE author1 with existing authored books', (done) => {
+      Book = server.models.Book;
+      Book.create({
+        title: 'book1',
+        publisher: 'publisher1',
+        year: 2019,
+        authorId: 'author1',
+      });
+      request.delete('/api/authors/author1').expect(400, () => {
+        Book.findOne({where: {authorId: 'author1'}}, (err, book) => {
+          book.delete();
+        });
+        done();
+      });
     });
 
     it('DELETE author2', (done) => {
       request.delete('/api/authors/author2').expect(200, done);
+    });
+
+    it('DELETE author1', (done) => {
+      request.delete('/api/authors/author1').expect(200, done);
     });
   });
 });

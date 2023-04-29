@@ -41,7 +41,6 @@
     "options": {
       "remoting": {
         "sharedMethods": {
-          "*": false,
           "find": true,
           "create": true,
           "findById": true,
