@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function (Book) {
+module.exports = (Book) => {
   Book.validatesLengthOf('title', {
     max: 100,
     message: {max: 'Book title is too long'},

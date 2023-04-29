@@ -42,8 +42,9 @@
       "remoting": {
         "sharedMethods": {
           "*": false,
-          "findById": true,
+          "find": true,
           "create": true,
+          "findById": true,
           "prototype.patchAttributes": true,
           "deleteById": true
         }

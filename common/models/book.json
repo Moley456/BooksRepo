@@ -6,6 +6,7 @@
   "options": {
     "validateUpsert": true
   },
+  "strict": true,
   "properties": {
     "title": {
       "type": "string",

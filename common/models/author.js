@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function (Author) {
+module.exports = (Author) => {
   Author.validatesLengthOf('name', {
     max: 100,
     message: {max: 'Author name is too long'},
