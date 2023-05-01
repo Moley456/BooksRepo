@@ -24,17 +24,23 @@ describe('/books', () => {
       () => {
         Book.findOne({where: {title: 'book1'}}, (err, res) => {
           bookId = res.id;
+          done();
         });
-        done();
       }
     );
   });
 
+  afterEach((done) => {
+    Book.deleteAll({title: 'book1'}, () => {
+      done();
+    });
+  });
+
   // clean up
-  after(() => {
-    Book.deleteAll({title: 'book1'});
-    Author.deleteAll({name: 'author1'});
-    Author.deleteAll({name: 'author2'});
+  after((done) => {
+    Author.deleteAll({name: 'author1'})
+      .then(() => Author.deleteAll({name: 'author2'}))
+      .then(() => done());
   });
 
   describe('GET', () => {
@@ -44,10 +50,10 @@ describe('/books', () => {
         .expect(200)
         .end((err, res) => {
           if (err) {
-            return done(err);
+            done(err);
           }
           assert(res.body.length != 0);
-          return done();
+          done();
         });
     });
   });
@@ -65,13 +71,13 @@ describe('/books', () => {
         .expect(200)
         .end((err, res) => {
           if (err) {
-            return done(err);
+            done(err);
           }
           assert(res.body.title == 'book1');
           assert(res.body.publisher == 'publisher2');
           assert(res.body.year == 2013);
           assert(res.body.authorId == 'author1');
-          return done();
+          done();
         });
     });
 
@@ -90,12 +96,11 @@ describe('/books', () => {
         .expect(422)
         .end((err, res) => {
           if (err) {
-            return done(err);
+            done(err);
           }
-          console.log(res.body.error.details);
           assert(res.body.error.name == 'ValidationError');
           assert(res.body.error.details.codes.title[0] == 'length.max');
-          return done();
+          done();
         });
     });
 
@@ -103,7 +108,7 @@ describe('/books', () => {
       request
         .post('/api/books')
         .send({
-          title: 'book2',
+          title: 'book1',
           publisher:
             'longlonglonglonglonglonglonglonglonglonglonglonglonglonglong' +
             'longlonglonglonglonglonglonglonglonglonglonglonglonglonglong' +
@@ -114,11 +119,11 @@ describe('/books', () => {
         .expect(422)
         .end((err, res) => {
           if (err) {
-            return done(err);
+            done(err);
           }
           assert(res.body.error.name == 'ValidationError');
           assert(res.body.error.details.codes.publisher[0] == 'length.max');
-          return done();
+          done();
         });
     });
 
@@ -126,7 +131,7 @@ describe('/books', () => {
       request
         .post('/api/books')
         .send({
-          title: 'book2',
+          title: 'book1',
           publisher: 'publisher2',
           year: 19999,
           authorId: 'author1',
@@ -134,11 +139,11 @@ describe('/books', () => {
         .expect(422)
         .end((err, res) => {
           if (err) {
-            return done(err);
+            done(err);
           }
           assert(res.body.error.name == 'ValidationError');
           assert(res.body.error.details.codes.year[0] == 'format');
-          return done();
+          done();
         });
     });
 
@@ -146,7 +151,7 @@ describe('/books', () => {
       request
         .post('/api/books')
         .send({
-          title: 'book2',
+          title: 'book1',
           publisher: 'publisher2',
           year: 1999,
           authorId:
@@ -157,11 +162,11 @@ describe('/books', () => {
         .expect(422)
         .end((err, res) => {
           if (err) {
-            return done(err);
+            done(err);
           }
           assert(res.body.error.name == 'ValidationError');
           assert(res.body.error.details.codes.authorId[0] == 'length.max');
-          return done();
+          done();
         });
     });
 
@@ -186,11 +191,11 @@ describe('/books', () => {
         .expect(200)
         .end((err, res) => {
           if (err) {
-            return done(err);
+            done(err);
           }
           assert(res.body.publisher == 'publisher2');
           assert(res.body.year == 2000);
-          return done();
+          done();
         });
     });
 
@@ -201,13 +206,13 @@ describe('/books', () => {
         .expect(200)
         .end((err, res) => {
           if (err) {
-            return done(err);
+            done(err);
           }
           assert(res.body.authorId == 'author2');
           Author.findOne({where: {name: 'author2'}}, (err, res) => {
             assert(res != null);
+            done();
           });
-          return done();
         });
     });
 
@@ -233,10 +238,10 @@ describe('/books', () => {
         .expect(200)
         .end((err, res) => {
           if (err) {
-            return done(err);
+            done(err);
           }
           assert(res.body.count == 0);
-          return done();
+          done();
         });
     });
 
