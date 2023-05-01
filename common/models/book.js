@@ -1,5 +1,9 @@
 'use strict';
 
+const addAuthor = (authorName, AuthorModel) => {
+  AuthorModel.findOrCreate({where: {name: authorName}}, {name: authorName});
+};
+
 module.exports = (Book) => {
   Book.validatesLengthOf('title', {
     max: 100,
@@ -18,16 +22,18 @@ module.exports = (Book) => {
     message: {max: 'Author name is too long'},
   });
 
-  // For a new Book instance, creates and saves a new Author instance with
-  // the same author name if it did not exist.
-  Book.observe('after save', (ctx, next) => {
+  // For a new or updated Book instance, creates and saves a new Author
+  // instance with the same author name if it did not exist.
+  Book.observe('before save', (ctx, next) => {
     const Author = Book.app.models.Author;
 
     if (ctx.instance && ctx.instance.authorId) {
-      const authorName = ctx.instance.authorId;
-      Author.findOrCreate({where: {name: authorName}}, {name: authorName});
+      addAuthor(ctx.instance.authorId, Author);
     }
 
+    if (ctx.data && ctx.data.authorId) {
+      addAuthor(ctx.data.authorId, Author);
+    }
     next();
   });
 };

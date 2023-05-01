@@ -30,8 +30,11 @@ describe('/books', () => {
     );
   });
 
+  // clean up
   after(() => {
-    Book.deleteAll({where: {title: 'book1'}});
+    Book.deleteAll({title: 'book1'});
+    Author.deleteAll({name: 'author1'});
+    Author.deleteAll({name: 'author2'});
   });
 
   describe('GET', () => {
@@ -46,6 +49,132 @@ describe('/books', () => {
           assert(res.body.length != 0);
           return done();
         });
+    });
+  });
+
+  describe('POST', () => {
+    it('POST new book', (done) => {
+      request
+        .post('/api/books')
+        .send({
+          title: 'book1',
+          publisher: 'publisher2',
+          year: 2013,
+          authorId: 'author1',
+        })
+        .expect(200)
+        .end((err, res) => {
+          if (err) {
+            return done(err);
+          }
+          assert(res.body.title == 'book1');
+          assert(res.body.publisher == 'publisher2');
+          assert(res.body.year == 2013);
+          assert(res.body.authorId == 'author1');
+          return done();
+        });
+    });
+
+    it('fail to POST book with title more than 100 characters', (done) => {
+      request
+        .post('/api/books')
+        .send({
+          title:
+            'longlonglonglonglonglonglonglonglonglonglonglonglonglonglong' +
+            'longlonglonglonglonglonglonglonglonglonglonglonglonglonglong' +
+            'longlonglonglonglonglonglonglonglonglongtitle',
+          publisher: 'publisher2',
+          year: 1999,
+          authorId: 'author1',
+        })
+        .expect(422)
+        .end((err, res) => {
+          if (err) {
+            return done(err);
+          }
+          console.log(res.body.error.details);
+          assert(res.body.error.name == 'ValidationError');
+          assert(res.body.error.details.codes.title[0] == 'length.max');
+          return done();
+        });
+    });
+
+    it('fail to POST book with publisher more than 100 characters', (done) => {
+      request
+        .post('/api/books')
+        .send({
+          title: 'book2',
+          publisher:
+            'longlonglonglonglonglonglonglonglonglonglonglonglonglonglong' +
+            'longlonglonglonglonglonglonglonglonglonglonglonglonglonglong' +
+            'longlonglonglonglonglonglonglonglonglongpublisher',
+          year: 1999,
+          authorId: 'author1',
+        })
+        .expect(422)
+        .end((err, res) => {
+          if (err) {
+            return done(err);
+          }
+          assert(res.body.error.name == 'ValidationError');
+          assert(res.body.error.details.codes.publisher[0] == 'length.max');
+          return done();
+        });
+    });
+
+    it('fail to POST book year value of more than 9999', (done) => {
+      request
+        .post('/api/books')
+        .send({
+          title: 'book2',
+          publisher: 'publisher2',
+          year: 19999,
+          authorId: 'author1',
+        })
+        .expect(422)
+        .end((err, res) => {
+          if (err) {
+            return done(err);
+          }
+          assert(res.body.error.name == 'ValidationError');
+          assert(res.body.error.details.codes.year[0] == 'format');
+          return done();
+        });
+    });
+
+    it('fail to POST book with publisher more than 100 characters', (done) => {
+      request
+        .post('/api/books')
+        .send({
+          title: 'book2',
+          publisher: 'publisher2',
+          year: 1999,
+          authorId:
+            'longlonglonglonglonglonglonglonglonglonglonglonglonglonglong' +
+            'longlonglonglonglonglonglonglonglonglonglonglonglonglonglong' +
+            'longlonglonglonglonglonglonglonglonglongname',
+        })
+        .expect(422)
+        .end((err, res) => {
+          if (err) {
+            return done(err);
+          }
+          assert(res.body.error.name == 'ValidationError');
+          assert(res.body.error.details.codes.authorId[0] == 'length.max');
+          return done();
+        });
+    });
+
+    it('fail to POST existing book1', (done) => {
+      request
+        .post('/api/books')
+        .send({
+          title: 'book1',
+          publisher: 'publisher1',
+          year: 1999,
+          authorId: 'author1',
+        })
+        .expect(500, done);
     });
   });
 
@@ -65,6 +194,23 @@ describe('/books', () => {
         });
     });
 
+    it('PATCH book1 author', (done) => {
+      request
+        .patch(`/api/books/${bookId}`)
+        .send({authorId: 'author2'})
+        .expect(200)
+        .end((err, res) => {
+          if (err) {
+            return done(err);
+          }
+          assert(res.body.authorId == 'author2');
+          Author.findOne({where: {name: 'author2'}}, (err, res) => {
+            assert(res != null);
+          });
+          return done();
+        });
+    });
+
     it('fail to PATCH non-existing book', (done) => {
       request
         .patch('/api/books/non-exist')
@@ -79,51 +225,6 @@ describe('/books', () => {
         .expect(422, done);
     });
   });
-
-  //   describe('POST', () => {
-  //     it('POST author2', (done) => {
-  //       request
-  //         .post('/api/authors')
-  //         .send({name: 'author2', biography: 'I write books'})
-  //         .expect(200)
-  //         .end((err, res) => {
-  //           if (err) {
-  //             return done(err);
-  //           }
-  //           assert(res.body.name == 'author2');
-  //           assert(res.body.biography == 'I write books');
-  //           return done();
-  //         });
-  //     });
-
-  //     it('fail to POST author with name more than 100 characters', (done) => {
-  //       request
-  //         .post('/api/authors')
-  //         .send({
-  //           name:
-  //             'longlonglonglonglonglonglonglonglonglonglonglonglonglonglong' +
-  //             'longlonglonglonglonglonglonglonglonglonglonglonglonglonglong' +
-  //             'longlonglonglonglonglonglonglonglonglongname',
-  //           biography: 'I write books',
-  //         })
-  //         .expect(422)
-  //         .end((err, res) => {
-  //           if (err) {
-  //             return done(err);
-  //           }
-  //           assert(res.body.error.name == 'ValidationError');
-  //           assert(res.body.error.details.codes.name[0] == 'length.max');
-  //           return done();
-  //         });
-  //     });
-
-  //     it('fail to POST existing author1', (done) => {
-  //       request
-  //         .post('/api/authors')
-  //         .send({name: 'author1', biography: 'This is my biography'})
-  //         .expect(500, done);
-  //     });
-  //   });
 
   describe('DELETE', () => {
     it('DELETE non-existant book', (done) => {
