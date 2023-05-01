@@ -44,5 +44,7 @@ module.exports = function (environment) {
     // here you can enable a production-specific feature
   }
 
+  ENV.API_ENDPOINT = 'http://localhost:3000/api';
+
   return ENV;
 };
