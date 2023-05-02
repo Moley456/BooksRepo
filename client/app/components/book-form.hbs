@@ -13,7 +13,7 @@
     <Input
       class='form-input'
       @type='text'
-      @value={{this.publisher}}
+      @value='{{this.publisher}}'
       maxlength='50'
     />
   </label>
@@ -31,7 +31,6 @@
     />
   </label>
   <div class='submit-button-row'>
-
     <text class='submit-status'>
       {{#if this.isSubmitSuccess}}
         Success!

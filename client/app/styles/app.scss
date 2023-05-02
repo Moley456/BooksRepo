@@ -144,6 +144,7 @@ $book-width-mobile: 75vw;
 
 .form {
   padding: 0 3px;
+  width: 90%;
   .form-label {
     display: flex;
     flex-direction: column;
@@ -160,7 +161,7 @@ $book-width-mobile: 75vw;
 
 .submit-button-row {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   margin-top: 15px;
 }
 
@@ -168,7 +169,7 @@ $book-width-mobile: 75vw;
   background-color: aquamarine;
   padding: 5px 0;
   font-size: 16px;
-  width: 150px;
+  width: 100px;
   border-radius: 5px;
 }
 
@@ -178,5 +179,7 @@ $book-width-mobile: 75vw;
 }
 
 .submit-status {
-  width: 50%;
+  color: red;
+  width: 30%;
+  font-size: 14px;
 }
