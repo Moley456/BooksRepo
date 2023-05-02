@@ -345,9 +345,12 @@ $book-width-desktop-l: 15vw;
     visibility: visible;
     display: flex;
     justify-content: center;
+    position: absolute;
+    right: 0px;
+    bottom: 30px;
     align-items: center;
     width: 100%;
-    border-left: 1px solid black;
+    max-width: 30%;
     height: 100%;
   }
 }
