@@ -7,11 +7,8 @@
 
 const loopback = require('loopback');
 const boot = require('loopback-boot');
-const morgan = require('morgan');
 
 const app = (module.exports = loopback());
-
-app.use(morgan('combined'));
 
 app.start = function () {
   // start the web server

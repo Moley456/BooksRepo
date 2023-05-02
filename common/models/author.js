@@ -2,7 +2,7 @@
 
 module.exports = (Author) => {
   Author.validatesLengthOf('name', {
-    max: 100,
+    max: 50,
     message: {max: 'Author name is too long'},
   });
   Author.validatesLengthOf('biography', {

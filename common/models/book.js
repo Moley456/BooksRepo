@@ -6,11 +6,11 @@ const addAuthor = (authorName, AuthorModel) => {
 
 module.exports = (Book) => {
   Book.validatesLengthOf('title', {
-    max: 100,
+    max: 50,
     message: {max: 'Book title is too long'},
   });
   Book.validatesLengthOf('publisher', {
-    max: 100,
+    max: 50,
     message: {max: 'Publisher name is too long'},
   });
   Book.validatesFormatOf('year', {
@@ -18,7 +18,7 @@ module.exports = (Book) => {
     message: 'Year is not in correct format',
   });
   Book.validatesLengthOf('authorId', {
-    max: 100,
+    max: 50,
     message: {max: 'Author name is too long'},
   });
 

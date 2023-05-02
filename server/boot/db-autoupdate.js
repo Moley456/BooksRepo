@@ -1,6 +1,7 @@
 'use strict';
 var Promise = require('bluebird');
 
+// updates mongoDB's indexes to match model
 module.exports = (server) => {
   Promise.each(server.models(), function (model) {
     if (model.dataSource) {

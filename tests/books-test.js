@@ -81,12 +81,11 @@ describe('/books', () => {
         });
     });
 
-    it('fail to POST book with title more than 100 characters', (done) => {
+    it('fail to POST book with title more than 50 characters', (done) => {
       request
         .post('/api/books')
         .send({
           title:
-            'longlonglonglonglonglonglonglonglonglonglonglonglonglonglong' +
             'longlonglonglonglonglonglonglonglonglonglonglonglonglonglong' +
             'longlonglonglonglonglonglonglonglonglongtitle',
           publisher: 'publisher2',
@@ -104,13 +103,12 @@ describe('/books', () => {
         });
     });
 
-    it('fail to POST book with publisher more than 100 characters', (done) => {
+    it('fail to POST book with publisher more than 50 characters', (done) => {
       request
         .post('/api/books')
         .send({
           title: 'book1',
           publisher:
-            'longlonglonglonglonglonglonglonglonglonglonglonglonglonglong' +
             'longlonglonglonglonglonglonglonglonglonglonglonglonglonglong' +
             'longlonglonglonglonglonglonglonglonglongpublisher',
           year: 1999,
@@ -147,7 +145,7 @@ describe('/books', () => {
         });
     });
 
-    it('fail to POST book with publisher more than 100 characters', (done) => {
+    it('fail to POST book with publisher more than 50 characters', (done) => {
       request
         .post('/api/books')
         .send({
@@ -155,7 +153,6 @@ describe('/books', () => {
           publisher: 'publisher2',
           year: 1999,
           authorId:
-            'longlonglonglonglonglonglonglonglonglonglonglonglonglonglong' +
             'longlonglonglonglonglonglonglonglonglonglonglonglonglonglong' +
             'longlonglonglonglonglonglonglonglonglongname',
         })

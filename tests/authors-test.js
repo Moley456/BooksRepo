@@ -97,12 +97,11 @@ describe('/authors', () => {
         });
     });
 
-    it('fail to POST author with name more than 100 characters', (done) => {
+    it('fail to POST author with name more than 50 characters', (done) => {
       request
         .post('/api/authors')
         .send({
           name:
-            'longlonglonglonglonglonglonglonglonglonglonglonglonglonglong' +
             'longlonglonglonglonglonglonglonglonglonglonglonglonglonglong' +
             'longlonglonglonglonglonglonglonglonglongname',
           biography: 'I write books',

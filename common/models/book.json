@@ -30,7 +30,7 @@
   "acls": [],
   "methods": {},
   "indexes": {
-    "indexName": {
+    "bookIndex": {
       "keys": {
         "title": 1, 
         "publisher": 1,
