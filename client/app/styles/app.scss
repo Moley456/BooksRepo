@@ -138,11 +138,12 @@ $book-width-desktop-l: 15vw;
 
   @media screen and (min-width: 1024px) {
     grid-template-columns: repeat(3, auto);
-    margin-right: 20px;
+    margin-right: 30px;
   }
 
   @media screen and (min-width: 1440px) {
     grid-template-columns: repeat(4, auto);
+    margin-right: 40px;
   }
 }
 
@@ -171,6 +172,11 @@ $book-width-desktop-l: 15vw;
   left: 0;
   z-index: 1;
   background-color: rgba(0, 0, 0, 0.4);
+  @media screen and (min-width: 1024px) {
+    visibility: hidden;
+    height: 0px;
+    width: 0px;
+  }
 }
 
 .modal-top-row {
@@ -200,6 +206,10 @@ $book-width-desktop-l: 15vw;
 .form {
   padding: 0 3px;
   width: 90%;
+
+  @media screen and (min-width: 1024px) {
+    width: 80%;
+  }
   .form-label {
     display: flex;
     flex-direction: column;
@@ -225,11 +235,17 @@ $book-width-desktop-l: 15vw;
   font-size: 16px;
   width: 100px;
   border-radius: 5px;
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .delete-button {
   background-color: red;
   margin-right: 5px;
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .submit-status {
@@ -273,12 +289,29 @@ $book-width-desktop-l: 15vw;
   font-size: 16px;
   font-family: Lato;
   border: 1px solid black;
+  padding: 5px;
+
+  @media screen and (min-width: 768px) {
+    width: 80%;
+  }
+
+  @media screen and (min-width: 1024px) {
+    width: 60%;
+  }
 }
 
 .author-button-row {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-top: 15px;
+  @media screen and (min-width: 768px) {
+    padding: 0 9vw;
+  }
+
+  @media screen and (min-width: 1024px) {
+    padding: 0 19vw;
+  }
 }
 
 .bio-edit-button {
@@ -286,6 +319,9 @@ $book-width-desktop-l: 15vw;
   border-radius: 5px;
   padding: 5px 0;
   font-size: 20px;
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .author-delete-button {
@@ -299,4 +335,19 @@ $book-width-desktop-l: 15vw;
 
 .hidden {
   visibility: hidden;
+}
+
+.side-component {
+  width: 0px;
+  height: 0px;
+  visibility: hidden;
+  @media screen and (min-width: 1024px) {
+    visibility: visible;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    border-left: 1px solid black;
+    height: 100%;
+  }
 }

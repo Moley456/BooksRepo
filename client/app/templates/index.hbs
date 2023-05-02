@@ -8,13 +8,22 @@
 <div class='content'>
   <div class='add-button' {{on 'click' this.toggleAddModalView}}>Add a book!</div>
   <Books
-    @toggleForm={{this.toggleEditModalView}}
+    @toggleForm={{this.toggleEditView}}
     @selectBook={{this.selectBook}}
     @books={{this.sortedBooks}}
   />
   <SideSection>
-    <BookForm @type='add' />
+    {{#if this.isEditOpen}}
+      <BookForm
+        @type='edit'
+        @selectedBook={{this.selectedBook}}
+        @closeForm={{this.toggleEditView}}
+      />
+    {{else}}
+      <BookForm @type='add' />
+    {{/if}}
   </SideSection>
+
 </div>
 
 {{#if this.isAddModalOpen}}
@@ -23,12 +32,12 @@
   </Modal>
 {{/if}}
 
-{{#if this.isEditModalOpen}}
-  <Modal @title='Edit a Book' @toggleModalView={{this.toggleEditModalView}}>
+{{#if this.isEditOpen}}
+  <Modal @title='Edit a Book' @toggleModalView={{this.toggleEditView}}>
     <BookForm
       @type='edit'
       @selectedBook={{this.selectedBook}}
-      @closeForm={{this.toggleEditModalView}}
+      @closeForm={{this.toggleEditView}}
     />
   </Modal>
 {{/if}}

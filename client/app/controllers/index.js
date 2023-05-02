@@ -14,7 +14,7 @@ const titleSort = (a, b) => {
 
 export default class IndexController extends Controller {
   isAddModalOpen = false;
-  isEditModalOpen = false;
+  isEditOpen = false;
   @tracked selectedBook = {
     title: 'blank',
     publisher: 'blank',
@@ -28,8 +28,8 @@ export default class IndexController extends Controller {
   }
 
   @action
-  toggleEditModalView() {
-    this.toggleProperty('isEditModalOpen');
+  toggleEditView() {
+    this.toggleProperty('isEditOpen');
   }
 
   @action
