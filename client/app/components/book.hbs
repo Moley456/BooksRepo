@@ -1,7 +1,16 @@
-<article class='book' {{on 'click' (fn this.select @book)}}>
-  <FaIcon class='book-image' @icon='book' @size='4x' />
+<article class='book'>
+  <FaIcon
+    class='book-image'
+    @icon='book'
+    @size='4x'
+    {{on 'click' (fn this.select @book)}}
+  />
   <h3 class='book-details'>{{@book.title}}</h3>
-  <h3 class='book-details'>By: {{@book.authorId}}</h3>
+  <h3 class='book-details'>
+    <LinkTo @route='author' @model={{@book.authorId}}>
+      By:
+      {{@book.authorId}}
+    </LinkTo></h3>
   <text class='book-details'>Publisher: {{@book.publisher}}</text>
   <text class='book-details'>Year published: {{@book.year}}</text>
 </article>

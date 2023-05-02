@@ -1,8 +1,13 @@
 <div class='modal'>
   <div class='modal-content'>
-    <div class='modal-top-row' {{on 'click' @toggleModalView}}>
+    <div class='modal-top-row'>
       <h2>{{@title}}</h2>
-      <FaIcon @icon='xmark' @size='2x' />
+      <FaIcon
+        class='modal-cross'
+        @icon='xmark'
+        @size='2x'
+        {{on 'click' @toggleModalView}}
+      />
     </div>
     <div class='modal-body'>
       {{yield}}

@@ -41,10 +41,13 @@ export default class AddBookFormComponent extends Component {
     };
 
     let book = this.store.createRecord('book', data);
-    book.save();
-
-    this.setFormResult(book.isNew);
-    this.cleanUpForm();
+    book.save().then(
+      () => this.onSuccess(),
+      () => {
+        this.onError();
+        book.deleteRecord();
+      }
+    );
   }
 
   @action async submitEditForm(event) {
@@ -54,36 +57,42 @@ export default class AddBookFormComponent extends Component {
     this.args.selectedBook.publisher = this.publisher;
     this.args.selectedBook.year = parseInt(this.year);
     this.args.selectedBook.authorId = this.authorName;
-    const book = this.args.selectedBook;
 
-    book.save();
-
-    this.setFormResult(!book.hasDirtyAttributes);
-    this.cleanUpForm();
+    this.args.selectedBook.save().then(
+      () => this.onSuccess(),
+      () => {
+        this.onError();
+        book.rollbackAttributes();
+      }
+    );
   }
 
   @action async deleteBook(event) {
     event.preventDefault();
     const book = this.args.selectedBook;
-    book.destroyRecord();
+    book.deleteRecord();
+    book.save().then(
+      () => this.onSuccess(),
+      () => {
+        this.onError();
+        this.store.createRecord('book', book);
+      }
+    );
+  }
 
-    this.setFormResult(book.isDeleted);
+  onSuccess() {
+    // successfully saved
+    this.isSubmitSuccess = true;
+    this.isSubmitError = false;
+    if (this.args.type == 'edit') {
+      this.args.closeForm();
+    }
     this.cleanUpForm();
   }
 
-  setFormResult(isSuccess) {
-    if (isSuccess) {
-      // successfully saved
-      this.isSubmitSuccess = true;
-      this.isSubmitError = false;
-      if (this.args.type == 'edit') {
-        this.args.closeForm();
-      }
-    } else {
-      // error while saving
-      this.isSubmitSuccess = false;
-      this.isSubmitError = true;
-    }
+  onError() {
+    this.isSubmitSuccess = false;
+    this.isSubmitError = true;
   }
 
   cleanUpForm() {

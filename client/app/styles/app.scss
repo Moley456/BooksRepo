@@ -22,6 +22,10 @@ button {
   line-height: 1.5;
 }
 
+button {
+  background-color: aquamarine;
+}
+
 body {
   background: #ffffff;
 }
@@ -51,6 +55,9 @@ p {
 }
 
 .content {
+  @media screen and (min-width: 1024px) {
+    display: flex;
+  }
 }
 
 .menu {
@@ -63,21 +70,31 @@ p {
 }
 
 .add-button {
-  background-color: aquamarine;
   border: 1px solid black;
+  background-color: aquamarine;
   font-size: 20px;
   text-align: center;
   margin-bottom: 15px;
   border-radius: 5px;
   padding: 5px 0;
+  &:hover {
+    cursor: pointer;
+  }
+
+  @media screen and (min-width: 1024px) {
+    visibility: hidden;
+    height: 0px;
+    width: 0px;
+  }
 }
 
 // widths only in 'vw' units
 $book-width-mobile: 75vw;
+$book-width-tablet-s: 35vw;
+$book-width-tablet-l: 25vw;
+$book-width-desktop-s: 20vw;
+$book-width-desktop-l: 15vw;
 
-@function num-grid-items($book-width) {
-  @return floor(calc(100vw / $book-width));
-}
 .book {
   display: flex;
   flex-direction: column;
@@ -87,27 +104,59 @@ $book-width-mobile: 75vw;
   border: 2px solid black;
   border-radius: 5px;
   padding: 10px;
-  &:hover {
-    cursor: pointer;
+  @media screen and (min-width: 480px) {
+    width: $book-width-tablet-s;
+  }
+
+  @media screen and (min-width: 768px) {
+    width: $book-width-tablet-l;
+  }
+
+  @media screen and (min-width: 1024px) {
+    width: $book-width-desktop-s;
+  }
+
+  @media screen and (min-width: 1440px) {
+    width: $book-width-desktop-l;
+  }
+}
+
+.books {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: auto;
+  grid-template-rows: auto;
+  gap: 15px 10px;
+  @media screen and (min-width: 480px) {
+    gap: 15px 10px;
+    grid-template-columns: repeat(2, auto);
+  }
+
+  @media screen and (min-width: 768px) {
+    grid-template-columns: repeat(3, auto);
+  }
+
+  @media screen and (min-width: 1024px) {
+    grid-template-columns: repeat(3, auto);
+    margin-right: 20px;
+  }
+
+  @media screen and (min-width: 1440px) {
+    grid-template-columns: repeat(4, auto);
   }
 }
 
 .book-image {
   margin-bottom: 10px;
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .book-details {
   width: 100%;
   overflow-wrap: break-word;
   text-align: center;
-}
-
-.books {
-  display: grid;
-  justify-content: center;
-  grid-template-columns: repeat(num-grid-items($book-width-mobile), auto);
-  grid-template-rows: auto;
-  gap: 15px 10px;
 }
 
 .modal {
@@ -127,6 +176,12 @@ $book-width-mobile: 75vw;
 .modal-top-row {
   display: flex;
   justify-content: space-between;
+}
+
+.modal-cross {
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .modal-content {
@@ -161,12 +216,11 @@ $book-width-mobile: 75vw;
 
 .submit-button-row {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   margin-top: 15px;
 }
 
 .form-button {
-  background-color: aquamarine;
   padding: 5px 0;
   font-size: 16px;
   width: 100px;
@@ -182,4 +236,67 @@ $book-width-mobile: 75vw;
   color: red;
   width: 30%;
   font-size: 14px;
+}
+
+.author-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.author-name-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.author-name {
+  margin: 10px;
+}
+
+.author-name-input {
+  margin: 10px;
+  font-size: 25px;
+  width: 50%;
+  border: 1px solid black;
+  padding: 5px 2px;
+}
+
+.author-name-edit-icon {
+  right: 10px;
+}
+
+.author-biography {
+  margin-top: 5px;
+  width: 100%;
+  height: 15vh;
+  font-size: 16px;
+  font-family: Lato;
+  border: 1px solid black;
+}
+
+.author-button-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.bio-edit-button {
+  width: 100px;
+  border-radius: 5px;
+  padding: 5px 0;
+  font-size: 20px;
+}
+
+.author-delete-button {
+  @extend .bio-edit-button;
+  background-color: red;
+}
+
+.author-error-message {
+  color: red;
+}
+
+.hidden {
+  visibility: hidden;
 }

@@ -3,7 +3,7 @@ import { action } from '@ember/object';
 
 export default class BookComponent extends Component {
   @action select(book) {
-    this.args.toggleModalView();
+    this.args.toggleForm();
     this.args.selectBook(book);
   }
 }

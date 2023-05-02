@@ -1,2 +1,52 @@
-{{! <Author></Author>
-<Books></Books> }}
+<div class='author-details'>
+  <FaIcon class='author-picture' @icon='circle-user' @size='10x' />
+  <div class='author-name-row'>
+    {{#if this.isEditName}}
+      <Input
+        class='author-name-input'
+        @type='text'
+        @value={{@model.name}}
+        maxlength='50'
+      />
+      <FaIcon
+        class='author-name-edit-icons'
+        @icon='check'
+        @size='xl'
+        {{on 'click' this.editName}}
+      />
+    {{else}}
+      <h2 class='author-name'>{{@model.name}}</h2>
+      <FaIcon
+        class='author-name-edit'
+        @icon='pen-to-square'
+        @size='xl'
+        {{on 'click' this.toggleEditName}}
+      />
+    {{/if}}
+
+  </div>
+  <Textarea
+    class='author-biography'
+    @value={{@model.biography}}
+    maxlength='1000'
+  />
+</div>
+<div class='author-button-row'>
+  <button
+    class='author-delete-button'
+    disabled={{this.disableSubmit}}
+    {{on 'click' this.deleteAuthor}}
+  >Delete
+  </button>
+  <button
+    class='bio-edit-button'
+    disabled={{this.disableSubmit}}
+    {{on 'click' this.editBio}}
+  >Edit
+  </button>
+</div>
+<text class='author-error-msg {{if this.isDeleteError "" "hidden"}}'>Unable to
+  delete when author has an authored book</text>
+
+<text class='author-error-msg {{if this.isEditError "" "hidden"}}'>Error while
+  editing. Please try again</text>
