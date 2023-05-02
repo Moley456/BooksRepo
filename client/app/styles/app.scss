@@ -72,21 +72,40 @@ p {
   padding: 5px 0;
 }
 
+// widths only in 'vw' units
+$book-width-mobile: 75vw;
+
+@function num-grid-items($book-width) {
+  @return floor(calc(100vw / $book-width));
+}
 .book {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: $book-width-mobile;
   border: 2px solid black;
   border-radius: 5px;
+  padding: 10px;
   &:hover {
     cursor: pointer;
   }
 }
 
+.book-image {
+  margin-bottom: 10px;
+}
+
+.book-details {
+  width: 100%;
+  overflow-wrap: break-word;
+  text-align: center;
+}
+
 .books {
   display: grid;
-  grid-template-columns: repeat(2, auto);
+  justify-content: center;
+  grid-template-columns: repeat(num-grid-items($book-width-mobile), auto);
   grid-template-rows: auto;
   gap: 15px 10px;
 }
@@ -98,7 +117,7 @@ p {
   align-items: center;
   height: 100vh;
   width: 100vw;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   z-index: 1;
@@ -134,7 +153,7 @@ p {
     .form-input {
       border: 1px solid black;
       font-size: 20px;
-      padding: 4px 0;
+      padding: 4px 1px;
     }
   }
 }
@@ -145,11 +164,17 @@ p {
   margin-top: 15px;
 }
 
-.submit-button {
+.form-button {
   background-color: aquamarine;
-  padding: 5px 10px;
+  padding: 5px 0;
   font-size: 16px;
+  width: 150px;
   border-radius: 5px;
+}
+
+.delete-button {
+  background-color: red;
+  margin-right: 5px;
 }
 
 .submit-status {

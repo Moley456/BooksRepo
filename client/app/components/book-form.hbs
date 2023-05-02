@@ -1,4 +1,4 @@
-<form class='form' {{on 'submit' this.submitForm preventDefault=false}}>
+<form class='form'>
   <label class='form-label'>
     Title:
     <Input
@@ -31,19 +31,40 @@
     />
   </label>
   <div class='submit-button-row'>
+
     <text class='submit-status'>
       {{#if this.isSubmitSuccess}}
-        Book successfully added!
+        Success!
       {{else if this.isSubmitError}}
-        Error while adding book!
+        Error. Please try again.
       {{/if}}
     </text>
-    <button
-      class='submit-button'
-      type='submit'
-      disabled={{this.disableSubmit}}
-    >Add Book
-    </button>
+    {{#if (eq @type 'add')}}
+      <button
+        class='form-button'
+        type='submit'
+        disabled={{this.disableSubmit}}
+        {{on 'click' this.submitAddForm}}
+      >
+        Add Book
+      </button>
+    {{else if (eq @type 'edit')}}
+      <button
+        class='form-button delete-button'
+        type='submit'
+        {{on 'click' this.deleteBook}}
+      >
+        Delete Book
+      </button>
+      <button
+        class='form-button'
+        type='submit'
+        disabled={{this.disableSubmit}}
+        {{on 'click' this.submitEditForm}}
+      >
+        Edit Book
+      </button>
+    {{/if}}
   </div>
 
 </form>

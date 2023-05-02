@@ -1,10 +1,21 @@
 import Controller from '@ember/controller';
 import { action } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
+
+const titleSort = (a, b) => {
+  if (a.title < b.title) {
+    return -1;
+  }
+  if (a.title > b.title) {
+    return 1;
+  }
+  return 0;
+};
 
 export default class IndexController extends Controller {
   isAddModalOpen = false;
   isEditModalOpen = false;
-  selectedBook = {
+  @tracked selectedBook = {
     title: 'blank',
     publisher: 'blank',
     year: 0,
@@ -24,6 +35,9 @@ export default class IndexController extends Controller {
   @action
   selectBook(book) {
     this.selectedBook = book;
-    console.log(book);
+  }
+
+  get sortedBooks() {
+    return this.model.slice().sort(titleSort);
   }
 }

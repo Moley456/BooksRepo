@@ -10,13 +10,23 @@
   <Books
     @toggleModalView={{this.toggleEditModalView}}
     @selectBook={{this.selectBook}}
-    @books={{this.model}}
+    @books={{this.sortedBooks}}
   />
   {{! <Form></Form> }}
 </div>
 
 {{#if this.isAddModalOpen}}
-  <Modal @toggleAddModalView={{this.toggleAddModalView}} @title='Add a Book'>
-    <AddBookForm />
+  <Modal @title='Add a Book' @toggleModalView={{this.toggleAddModalView}}>
+    <BookForm @type='add' />
+  </Modal>
+{{/if}}
+
+{{#if this.isEditModalOpen}}
+  <Modal @title='Edit a Book' @toggleModalView={{this.toggleEditModalView}}>
+    <BookForm
+      @type='edit'
+      @selectedBook={{this.selectedBook}}
+      @closeForm={{this.toggleEditModalView}}
+    />
   </Modal>
 {{/if}}
