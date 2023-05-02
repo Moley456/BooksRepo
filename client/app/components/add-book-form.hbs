@@ -1,23 +1,49 @@
-<form>
+<form class='form' {{on 'submit' this.submitForm preventDefault=false}}>
   <label class='form-label'>
     Title:
-    <br />
-    <Input @type='text' @value={{this.title}} />
-  </label><br />
-
+    <Input
+      class='form-input'
+      @type='text'
+      @value={{this.title}}
+      maxlength='50'
+    />
+  </label>
   <label class='form-label'>
     Publisher:
-    <br />
-    <Input @type='text' @value={{this.publisher}} />
-  </label><br />
+    <Input
+      class='form-input'
+      @type='text'
+      @value={{this.publisher}}
+      maxlength='50'
+    />
+  </label>
   <label class='form-label'>
     Published year:
-    <br />
-    <Input @type='text' @value={{this.year}} />
-  </label><br />
+    <Input class='form-input' @type='number' @value={{this.year}} max='9999' />
+  </label>
   <label class='form-label'>
     Name of Author:
-    <br />
-    <Input @type='text' @value={{this.authorName}} />
-  </label><br />
+    <Input
+      class='form-input'
+      @type='text'
+      @value={{this.authorName}}
+      maxlength='50'
+    />
+  </label>
+  <div class='submit-button-row'>
+    <text class='submit-status'>
+      {{#if this.isSubmitSuccess}}
+        Book successfully added!
+      {{else if this.isSubmitError}}
+        Error while adding book!
+      {{/if}}
+    </text>
+    <button
+      class='submit-button'
+      type='submit'
+      disabled={{this.disableSubmit}}
+    >Add Book
+    </button>
+  </div>
+
 </form>

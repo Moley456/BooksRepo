@@ -2,7 +2,8 @@ import Controller from '@ember/controller';
 import { action } from '@ember/object';
 
 export default class IndexController extends Controller {
-  isModalOpen = false;
+  isAddModalOpen = false;
+  isEditModalOpen = false;
   selectedBook = {
     title: 'blank',
     publisher: 'blank',
@@ -11,12 +12,18 @@ export default class IndexController extends Controller {
   };
 
   @action
-  toggleModalView() {
-    this.toggleProperty('isModalOpen');
+  toggleAddModalView() {
+    this.toggleProperty('isAddModalOpen');
+  }
+
+  @action
+  toggleEditModalView() {
+    this.toggleProperty('isEditModalOpen');
   }
 
   @action
   selectBook(book) {
     this.selectedBook = book;
+    console.log(book);
   }
 }

@@ -1,5 +1,9 @@
 <div class='books'>
   {{#each @books as |book|}}
-    <Book @book={{book}} />
+    <Book
+      @book={{book}}
+      @toggleModalView={{@toggleModalView}}
+      @selectBook={{@selectBook}}
+    />
   {{/each}}
 </div>

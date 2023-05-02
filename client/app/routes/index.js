@@ -6,7 +6,6 @@ export default class IndexRoute extends Route {
   @service store;
 
   async model() {
-    console.log(await this.store.findAll('book'));
     return this.store.findAll('book');
   }
 }

@@ -1,3 +1,11 @@
 <div class='modal'>
-  {{yield}}
+  <div class='modal-content'>
+    <div class='modal-top-row' {{on 'click' @toggleAddModalView}}>
+      <h2>{{@title}}</h2>
+      <FaIcon @icon='xmark' @size='2x' />
+    </div>
+    <div class='modal-body'>
+      {{yield}}
+    </div>
+  </div>
 </div>

@@ -40,11 +40,17 @@ p {
   margin-bottom: 15px;
 }
 
+.logo {
+  color: black;
+}
+
 .app {
+  .body {
+    padding: 2rem;
+  }
 }
 
 .content {
-  padding: 2rem;
 }
 
 .menu {
@@ -54,6 +60,16 @@ p {
   border-bottom: 2px solid rgb(207, 207, 207);
   height: 4rem;
   padding: 0 2rem;
+}
+
+.add-button {
+  background-color: aquamarine;
+  border: 1px solid black;
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  padding: 5px 0;
 }
 
 .book {
@@ -77,6 +93,7 @@ p {
 
 .modal {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
@@ -84,4 +101,57 @@ p {
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-top-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal-content {
+  background-color: #fefefe;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 75%;
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form {
+  padding: 0 3px;
+  .form-label {
+    display: flex;
+    flex-direction: column;
+    margin: 15px 1px 0 1px;
+    font-size: 20px;
+
+    .form-input {
+      border: 1px solid black;
+      font-size: 20px;
+      padding: 4px 0;
+    }
+  }
+}
+
+.submit-button-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.submit-button {
+  background-color: aquamarine;
+  padding: 5px 10px;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+.submit-status {
+  width: 50%;
 }
