@@ -326,15 +326,26 @@ $book-width-desktop-l: 15vw;
 
 .author-delete-button {
   @extend .bio-edit-button;
+
   background-color: red;
 }
 
-.author-error-message {
+.author-error-msg-row {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.author-error-msg {
   color: red;
+  text-align: center;
 }
 
 .hidden {
   visibility: hidden;
+  width: 0;
+  height: 0;
 }
 
 .side-component {

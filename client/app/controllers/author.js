@@ -8,7 +8,6 @@ export default class AuthorController extends Controller {
   @service router;
   @tracked isDeleteError = false;
   @tracked isEditError = false;
-  isEditName = false;
 
   get disableSubmit() {
     return !this.model.name.length || !this.model.name.length;
@@ -16,18 +15,6 @@ export default class AuthorController extends Controller {
 
   @action toggleEditName() {
     this.toggleProperty('isEditName');
-  }
-
-  //TODO
-  @action async editName() {
-    this.model.save().then(
-      () => {
-        this.toggleEditName();
-      },
-      () => {
-        this.model.rollbackAttributes();
-      }
-    );
   }
 
   @action async editBio() {
@@ -44,7 +31,7 @@ export default class AuthorController extends Controller {
         this.router.transitionTo('index');
       },
       () => {
-        this.DeleteError = true;
+        this.isDeleteError = true;
       }
     );
   }

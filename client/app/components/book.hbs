@@ -8,9 +8,10 @@
   <h3 class='book-details'>{{@book.title}}</h3>
   <h3 class='book-details'>
     <LinkTo @route='author' @model={{@book.authorId}}>
-      By:
+      Author:
       {{@book.authorId}}
-    </LinkTo></h3>
+    </LinkTo>
+  </h3>
   <text class='book-details'>Publisher: {{@book.publisher}}</text>
   <text class='book-details'>Year published: {{@book.year}}</text>
 </article>
