@@ -1,30 +1,35 @@
 <form class='form'>
-  <label class='form-label'>
+  <label class='form-label title'>
     Title:
     <Input
-      class='form-input'
+      class='form-input title'
       @type='text'
       @value={{this.title}}
       maxlength='50'
     />
   </label>
-  <label class='form-label'>
+  <label class='form-label publisher'>
     Publisher:
     <Input
-      class='form-input'
+      class='form-input publisher'
       @type='text'
       @value={{this.publisher}}
       maxlength='50'
     />
   </label>
-  <label class='form-label'>
+  <label class='form-label year'>
     Published year:
-    <Input class='form-input' @type='number' @value={{this.year}} max='9999' />
+    <Input
+      class='form-input year'
+      @type='number'
+      @value={{this.year}}
+      max='9999'
+    />
   </label>
-  <label class='form-label'>
+  <label class='form-label author'>
     Name of Author:
     <Input
-      class='form-input'
+      class='form-input author'
       @type='text'
       @value={{this.authorName}}
       maxlength='50'
@@ -40,7 +45,7 @@
     </text>
     {{#if (eq @type 'add')}}
       <button
-        class='form-button'
+        class='form-button add'
         type='submit'
         disabled={{this.disableSubmit}}
         {{on 'click' this.submitAddForm}}
@@ -56,7 +61,7 @@
         Delete Book
       </button>
       <button
-        class='form-button'
+        class='form-button edit'
         type='submit'
         disabled={{this.disableSubmit}}
         {{on 'click' this.submitEditForm}}

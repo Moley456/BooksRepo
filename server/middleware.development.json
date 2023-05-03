@@ -2,7 +2,7 @@
   "initial": {
     "cors": {
       "params": {
-        "origin": "http://localhost:4200"
+        "origin": "*"
       }
     }
   },
